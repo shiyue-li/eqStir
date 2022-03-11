@@ -4,15 +4,16 @@
 import warnings
 
 def frob_char_ass(n):
+#calculates ch_n of the degree n part of the associative operad: Ind_{C_n}^{S_n} 1
     p = SymmetricFunctions(QQ).powersum()
     s = SymmetricFunctions(QQ).schur()
     div = divisors(n)
-    codiv = []
     frob = sum(euler_phi(d)/n * (p[d])^(n//d) for d in div)
     return s(frob)
 
 
 def frob_first(n,m):
+#calculates ch_n W_n,m, where W_n,m is the S_n-rep spanned by permutations formed by m disjoint nonempty cycles
     h = SymmetricFunctions(QQ).homogeneous()
     s = SymmetricFunctions(QQ).schur()
     insert = sum(frob_char_ass(i) for i in range(1, n - m + 2))
@@ -23,9 +24,8 @@ def frob_first(n,m):
 def frob_second(n,m):
 #this calculates the character of the S_n rep spanned by m-partitions of {1,...,n}, as a symmetric function
 #the coefficient of s_lambda is the multiplicity of the corresponding irrep
-    Sym = SymmetricFunctions(QQ)
     s = SymmetricFunctions(QQ).schur()
-    h = Sym.homogeneous()
+    h = SymmetricFunctions(QQ).homogeneous()
     src = h[m]
     insert = sum(h[i] for i in range(1, n - m + 2))
     total = src.plethysm(insert)
@@ -35,7 +35,6 @@ def frob_second(n,m):
 def is_subrep(f, g, n):
 #f and g are symmetric functions, homogeneous of degree n, representing the characters of V and W, respectively
 #checks if V is an S_n-subrep of W
-    Sym = SymmetricFunctions(QQ)
     s = SymmetricFunctions(QQ).schur()
     potential_subrep = s(f)
     potential_contain = s(g)
@@ -50,7 +49,7 @@ def is_subrep(f, g, n):
 
 
 def dim(f,n):
-    #computes the dimension of a S_n representation using the Frobenius
+    #computes the dimension of the S_n representation which has Frobenius char = f
         p = SymmetricFunctions(QQ).powersum()
         part = []
         for i in range(1, n+1):
