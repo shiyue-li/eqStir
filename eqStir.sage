@@ -42,6 +42,9 @@ def is_subrep(f, g, n):
     partition_list = Partitions(n)
     for i in range(0, len(partition_list)):
         if potential_subrep.scalar(s[partition_list[i]]) > potential_contain.scalar(s[partition_list[i]]):
+            print(i, "-th term, subrep coeff: ", potential_subrep.scalar(s[partition_list[i]]))
+            print(i, "-th term, bigrep coeff: ", potential_contain.scalar(s[partition_list[i]]))
+            print(partition_list[i])
             return False
     return True
 
@@ -66,6 +69,7 @@ def eq_first(n):
         dim_left = dim(left, n)
         dim_right = dim(right, n)
         dim_middle = dim(middle, n)
+        print(i,":dim left is", dim_left, ", dim right is", dim_right, ", dim middle is", dim_middle)
         if (dim_left != stirling_number1(n, i-1) or
             dim_right != stirling_number1(n, i+1) or
             dim_middle != stirling_number1(n, i)):
@@ -74,7 +78,9 @@ def eq_first(n):
         test = left.itensor(right)
         check = middle.itensor(middle)
 
-        return is_subrep(test, check, n)
+        if not is_subrep(test, check, n):
+            print("Not equiv log concave at i = "+str(i))
+    return True
 
 
 def eq_second(n):
@@ -89,6 +95,7 @@ def eq_second(n):
           dim_left = dim(left, n)
           dim_right = dim(right, n)
           dim_middle = dim(middle, n)
+          print(i,":dim left is", dim_left, ", dim right is", dim_right, ", dim middle is", dim_middle)
           if (dim_left != stirling_number2(n, i-1) or
               dim_right != stirling_number2(n, i+1) or
               dim_middle != stirling_number2(n, i)):
@@ -97,4 +104,7 @@ def eq_second(n):
           test = left.itensor(right)
           check = middle.itensor(middle)
 
-          return is_subrep(test, check, n)
+          if not is_subrep(test, check, n):
+              print("Not equiv log concave at i = "+str(i))
+
+      return True
