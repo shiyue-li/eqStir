@@ -74,7 +74,7 @@ def eq_first(n):
         test = left.itensor(right)
         check = middle.itensor(middle)
 
-         return is_subrep(test, check, n)
+        return is_subrep(test, check, n)
 
 
 def eq_second(n):
