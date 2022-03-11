@@ -58,9 +58,9 @@ def eq_first(n):
 #checks if the graded v.s. spanned by partitions of {1,...,n} is equiv log concave
 #grading is given by number of blocks in partition
     for i in range(2, n):
-        left = frob_second(n, i-1)
-        right = frob_second(n, i+1)
-        middle = frob_second(n, i)
+        left = frob_first(n, i-1)
+        right = frob_first(n, i+1)
+        middle = frob_first(n, i)
 
         #check dimensions
         dim_left = dim(left, n)
