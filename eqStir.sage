@@ -107,3 +107,39 @@ def eq_second(n):
               print("Not equiv log concave at i = "+str(i))
 
       return True
+
+
+def frob_second2(n):
+#computes the frobenius character of V_n,i at i = 2
+    h = SymmetricFunctions(QQ).homogeneous()
+    p = SymmetricFunctions(QQ).powersum()
+    f = (1/2)*sum(h[k]*h[n-k] for k in range(1, n))
+    if n%2 == 0:
+        return f + (1/2)*p[2].plethysm(h[n//2])
+    else:
+        return f
+
+def eq_second2(n):
+#checks weak equivariant log-concavity at i=2 for all integers less than n
+   for n in range(3, n+1):
+       left = frob_second(n, 1)
+       right = frob_second(n, 3)
+       middle = frob_second2(n)
+
+       #check dimensions
+       dim_left = dim(left, n)
+       dim_right = dim(right, n)
+       dim_middle = dim(middle, n)
+       print(str(n),":dim left is", dim_left, ", dim right is", dim_right, ", dim middle is", dim_middle)
+       if (dim_left != stirling_number2(n, 1) or
+           dim_right != stirling_number2(n, 3) or
+           dim_middle != stirling_number2(n, 2)):
+           warnings.warn("Dimensions are wrong for n = "+str(n))
+
+       test = left.itensor(right)
+       check = middle.itensor(middle)
+
+       if not is_subrep(test, check, n):
+           print("Not equiv log concave at i = 2 for n = "+str(n))
+
+   return True
