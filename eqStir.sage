@@ -119,9 +119,9 @@ def frob_second2(n):
     else:
         return f
 
-def eq_second2(n):
-#checks weak equivariant log-concavity at i=2 for all integers less than n
-   for n in range(3, n+1):
+def eq_second2(start, end):
+#checks weak equivariant log-concavity at i=2 for all integers between start and end.
+   for n in range(start, end+1):
        left = frob_second(n, 1)
        right = frob_second(n, 3)
        middle = frob_second2(n)
