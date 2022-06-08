@@ -144,28 +144,21 @@ def eq_second2(start, end):
 
    return True
 
-def stir_second(n, m);
+def stir_second(n, m):
     # checks strong equivariant log concavity of n, up till degree m 
     for i in range(0, floor(m/2)):
         left1 = frob_second(n, i)
         right1 = frob_second(n, m-i)
         
-        left2 = frob_second(n, i)
-        right2 = frob_second(n, m-i)
-        
-        #check dimensions
-        dim_left = dim(left, n)
-        dim_right = dim(right, n)
-        print(str(n),":dim left is", dim_left, ", dim right is", dim_right)
-        if (dim_left != stirling_number2(n, i) or
-            dim_right != stirling_number2(n, m-i):
-            warnings.warn("Dimensions are wrong for n = ", n " at m = ", m)
+        left2 = frob_second(n, i+1)
+        right2 = frob_second(n, m-i-1)
+        print(i, dim(left1,n), dim(right1,n), dim(left2,n), dim(right2,n))
         
         if not is_subrep(left1.itensor(right1), left2.itensor(right2), n):
-            print("n: ", n, ",m: ", m, ",i: ", i)
+            print(n, m, i)
             return False
     
     return True 
         
         
-        
+stir_second(7,6)
