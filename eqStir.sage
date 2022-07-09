@@ -175,19 +175,22 @@ def strong1(n, m):
         
         left2 = frob_first(n, i+1)
         right2 = frob_first(n, m-i-1)
-        print(i, dim(left1,n), dim(right1,n), dim(left2,n), dim(right2,n))
         
         if not is_subrep(left1.itensor(right1), left2.itensor(right2), n):
             print(n, m, i)
             return False
-    
     return True 
         
 def check1(m):
     # check strong equivariant log concavity for degree m at when stability kicks in
     for i in range(m, 4*m+1):
-        print(i, strong1(i, m))
+        print("i is ", i, ";", strong1(i, m))
+    print("ELC holds for all up till degree", m)
     return True
 
 
-check_second(4)
+for m in range(0, 8): 
+    check1(m)
+    
+for m in range(0, 8):
+    check2(m)
