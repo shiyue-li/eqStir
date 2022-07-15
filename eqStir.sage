@@ -189,8 +189,8 @@ def check1(m):
     return True
 
 
-for m in range(0, 8): 
+for m in range(5, 8): 
     check1(m)
     
-for m in range(0, 8):
+for m in range(4, 8):
     check2(m)
